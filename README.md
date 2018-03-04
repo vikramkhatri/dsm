@@ -106,7 +106,7 @@ docker run -d -it \
 
 #### Check progress
 
-After starting the container, you can run the command: `docker logs -f dsm` to check the logs file of the install. Please note: When you run docker run command for the first time, the Data Server Manager software gets installed. If you stop the container and start it again, it will start the Data Server Manager without having to go through the install of the program. We control this through the ``/opt/start_dsm.sh` script.
+After starting the container, you can run the command: `docker logs -f dsm` to check the logs file of the install. Please note: When you run docker run command for the first time, the Data Server Manager software gets installed. If you stop the container and start it again, it will start the Data Server Manager without having to go through the install of the program. We control this through the `/opt/start_dsm.sh` script.
 
 ### Stop Container
 
