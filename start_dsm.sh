@@ -6,7 +6,7 @@ DSMHOME=/opt/ibm-datasrvrmgr
 FLAG="/var/log/firstboot.log"
 
 if  [ ! -f $FLAG ] ; then
-   WEB_PWD=$($DSMHOME/dsutil/bin/crypt.sh ${WEB_USER:=admin})
+   WEB_PWD=$($DSMHOME/dsutil/bin/crypt.sh ${WEB_PWD:=password})
 
    echo ####################################################
    env
@@ -22,7 +22,7 @@ if  [ ! -f $FLAG ] ; then
         admin.password=${WEB_PWD}
 EOF
    else
-      REP_PWD=$($DSMHOME/dsutil/bin/crypt.sh ${REP_USER:=admin})
+      REP_PWD=$($DSMHOME/dsutil/bin/crypt.sh ${REP_PWD:=password})
       tee $DSMHOME/setup.conf <<-EOF
          product.license.accepted=y
          port=${HTTP_PORT:=11080}
@@ -46,6 +46,12 @@ EOF
    echo ####################################################
    cd $DSMHOME
    ./setup.sh -silent
+   echo ####################################################
+   echo Add cookie.secureOnly=false for http access
+   echo ####################################################
+   if ! grep -qs cookie.secureOnly $DSMHOME/Config/dswebserver.properties ; then
+      echo "cookie.secureOnly=false" >> $DSMHOME/Config/dswebserver.properties
+   fi
    touch $FLAG
 else
    echo ####################################################
@@ -54,6 +60,8 @@ else
    cd $DSMHOME/bin
    ./start.sh
 fi
+
+echo "--done--"
 
 ## Run forever so that container does not stop
 tail -f /dev/null

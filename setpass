@@ -1,0 +1,16 @@
+#!/bin/bash
+
+DSMHOME=/opt/ibm-datasrvrmgr
+
+WEB_PWD=$1
+
+if [[ "$WEB_PWD" == "" ]] ; then
+   echo "Usage: setpass password"
+   exit 1
+fi
+
+WEB_PWD=$($DSMHOME/dsutil/bin/crypt.sh $WEB_PWD)
+
+echo Encrypted password is : $WEB_PWD
+
+sed -i "s/^\(dsweb.customauth.password\).*/\1=$WEB_PWD/" $DSMHOME/Config/dswebserver.properties

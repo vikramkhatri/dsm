@@ -88,7 +88,7 @@ docker run -d -it \
   --name=dsm \
   --env-file=./dsm.env \
   -h dsmhost \
-  -p 11080:11080 \
+  -p 11080:11080 -p 11081:11081 \
   ibm/dsm:v2.1.5
 ```
 #### Externalize Config and log folder from container to the host
@@ -126,3 +126,15 @@ docker ps
 ```
 
 You will notice that we are port forwarding 11080 to the Container. You can launch the browser and run http://localhost:11080 to open the WEB UI of the data server manager.
+
+#### Change Web UI password
+
+```
+docker exec -it dsm setpass password
+```
+
+#### Shell to Container
+
+```
+docker exec -it dsm /bin/bash
+```
