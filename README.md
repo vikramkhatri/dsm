@@ -98,7 +98,7 @@ docker run -d -it \
   --name=dsm \
   --env-file=./dsm.env \
   -h dsmhost \
-  -p 11080:11080 \
+  -p 11080:11080 -p 11081:11081 \
   -v ./Config:/opt/ibm-datasrvrmgr/Config \
   -v ./logs:/opt/ibm-datasrvrmgr/logs \
   ibm/dsm:v2.1.5
@@ -138,3 +138,11 @@ docker exec -it dsm setpass password
 ```
 docker exec -it dsm /bin/bash
 ```
+
+#### Save Docker Image
+
+```
+docker save ibm/dsm:v2.1.5 | gzip -c > /tmp/dsm_2.1.5.tar.gz
+```
+
+Now, you can use this docker image in your public / private repository
