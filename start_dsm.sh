@@ -1,6 +1,8 @@
 #!/bin/bash
 
 set +x
+echo "Starting DSM health API"
+ /usr/bin/dsm-api &
 
 DSMHOME=/opt/ibm-datasrvrmgr
 FLAG="/var/log/firstboot.log"
