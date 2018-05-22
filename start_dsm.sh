@@ -2,8 +2,13 @@
 
 set +x
 
+echo "Starting DSM health API"
+/usr/bin/dsm-api &
+
 DSMHOME=/opt/ibm-datasrvrmgr
-FLAG="/var/log/firstboot.log"
+FLAG=/var/log/firstboot.log
+rm -f /var/log/healthiness
+rm -f /var/log/liveliness
 
 if  [ ! -f $FLAG ] ; then
    WEB_PWD=$($DSMHOME/dsutil/bin/crypt.sh ${WEB_PWD:=password})
@@ -60,6 +65,9 @@ else
    cd $DSMHOME/bin
    ./start.sh
 fi
+
+touch /var/log/healthiness
+touch /var/log/liveliness
 
 echo "--done--"
 
