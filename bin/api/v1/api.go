@@ -21,10 +21,10 @@ func Exists(name string) bool {
 
 func GetHealthinessStatus(w http.ResponseWriter, r *http.Request) {
     if Exists("/var/log/healthiness") {
-      d1 := map[string]string{"heathStatus": "OK"}
+      d1 := map[string]string{"healthStatus": "OK"}
       json.NewEncoder(w).Encode(d1)
     } else {
-      d1 := map[string]string{"heathStatus": "NotOK"}
+      d1 := map[string]string{"healthStatus": "NotOK"}
       json.NewEncoder(w).Encode(d1)
     }
 }
